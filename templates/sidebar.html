@@ -1,0 +1,85 @@
+{% load static %}
+<div class="main-sidebar dark">
+  <aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+      <a href="">
+        <img alt="image" src="{% static 'assets/img/l.png' %}" class="header-logo" style="height: 50px; width: 50px;" />
+        <span class="logo-name" style="color: white;">SMK RADJA</span>
+      </a>
+    </div>
+    <ul class="sidebar-menu">
+      <hr />
+      {% for group in user.groups.all %}
+        {% if group.name == 'administrator' %}
+          <a class="navbar-brand" href="#"></a>
+        {% endif %}
+        {% if group.name == 'panitia' %}
+          <a class="navbar-brand" href="#"></a>
+        {% endif %}
+        {% if group.name == 'guru' %}
+          <a class="navbar-brand" href="#"></a>
+        {% endif %}
+      {% endfor %}
+
+      <li class="dropdown">
+        <a href="{% url 'beranda' %}" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
+      </li>
+
+      {% for group in user.groups.all %}
+        {% if group.name == 'administrator' %}
+          <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="calendar"></i><span>Jadwal</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_jaga_admin' %}">Jadwal Jaga</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_ujian_admin' %}">Jadwal Ujian</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'pengguna' %}" class="nav-link"><i data-feather="user"></i><span>Pengguna</span></a>
+          </li>
+        {% endif %}
+
+        {% if group.name == 'panitia' %}
+          <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="calendar"></i><span>Jadwal</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_jaga' %}">Jadwal Jaga</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_ujian' %}">Jadwal Ujian</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="{% url 'mapel_list' %}" class="nav-link"><i data-feather="book"></i><span>Mapel</span></a>
+          </li>
+          <li>
+            <a href="{% url 'user_settings' %}" class="nav-link"><i data-feather="settings"></i><span>Setting</span></a>
+          </li>
+        {% endif %}
+
+        {% if group.name == 'guru' %}
+          <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="calendar"></i><span>Jadwal</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_jaga_guru' %}">Jadwal Jaga</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'jadwal_ujian_guru' %}">Jadwal Ujian</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="{% url 'buatsoal' %}" class="nav-link"><i data-feather="file"></i><span>Soal</span></a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+</div>

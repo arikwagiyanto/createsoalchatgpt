@@ -1,0 +1,21 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+<div class="main-content">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="card-header">
+                <h4>Hapus Guru</h4>
+            </div>
+            <div class="card card-body">
+                <h4>Apakah Anda Ingin Menghapus <strong>{{ guru.nama_pengguna }}</strong>?</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Ya"/>
+                        <a href="{% url 'pengguna' %}" class="btn btn-secondary">Cancel</a>  <!-- Update with the correct URL name -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

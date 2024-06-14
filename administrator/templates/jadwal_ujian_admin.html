@@ -1,0 +1,34 @@
+<!-- guru/templates/guru/jadwal_ujian_list.html -->
+{% extends 'base_user.html' %}
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Jadwal Ujian</h1>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    {% for jadwal in jadwal_ujian %}
+                                    <li class="mb-4">
+                                        <p>Upload : {{ jadwal.tanggal }}</p>
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe src="{{ jadwal.file_jadwal.url }}" width="900" height="400"></iframe><br>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

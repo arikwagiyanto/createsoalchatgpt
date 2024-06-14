@@ -1,0 +1,39 @@
+{% extends "base_user.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="main-content">
+  <section class="section">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+          <div class="card ">
+            <div class="card-header">
+              <h2>Informasi</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-9">
+                  <ul>
+                    <li>Soal pilihan sejumlah 35 soal</li>
+                    <li>Soal uraian sejumlah 5 soal</li>
+                    <li>Soal ujian meliputi materi pelajaran pada semester genap</li>
+                    <li>Batas akhir pengumpulan soal PAT pada hari Rabu, 1 Mei 2024</li>
+                    <li>Apabila soal yang dikumpulkan:
+                      <ul>
+                        <li>Tidak sesuai dengan format yang telah ditentukan</li>
+                        <li>Melebihi batas waktu yang telah ditentukan</li>
+                      </ul>
+                      <span style="color: red; font-weight: bold;">Maka HR Hangus !!!!!!!</span>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+<!-- panitia/templates/panitia/jadwal_confirm_delete.html -->
+{% extends 'base_user.html' %}
+
+{% block content %}
+<div class="main-content  ">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Hapus Jadwal Ujian</h1>
+    </div>
+    <div class="card-body">
+      <p>Anda yakin ingin menghapus jadwal ujian tanggal <strong>{{ jadwal.tanggal }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <button type="submit" class="btn btn-danger">Ya, hapus</button>
+          <a href="{% url 'jadwal_ujian' %}" class="btn btn-success">Tidak, kembali ke daftar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

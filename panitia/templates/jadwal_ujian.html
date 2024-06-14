@@ -1,0 +1,37 @@
+<!-- panitia/templates/jadwal_list.html -->
+{% extends 'base_user.html' %}
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h1 class="mb-0">Jadwal Ujian</h1>
+                            <a href="{% url 'jadwal_ujian_create' %}" class="btn btn-primary">Add Jadwal</a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for jadwal in jadwal %}
+                                <li class="mb-4">
+                                    <p>Upload : {{ jadwal.tanggal }}</p>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="{{ jadwal.file_jadwal.url }}" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+                                    <a href="{{ jadwal.file_jadwal.url }}" class="btn btn-success">Download</a>
+                                    <a href="{% url 'jadwal_ujian_update' jadwal.pk %}" class="btn btn-primary">Edit</a>
+                                    <a href="{% url 'jadwal_ujian_delete' jadwal.pk %}" class="btn btn-danger">Delete</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

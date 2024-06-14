@@ -1,0 +1,21 @@
+{% extends 'base_user.html' %}
+
+{% block content %}  
+<div class="main-content">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="card card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4>Guru Information</h4>
+                    {{ panitia_form.as_p }}
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+                    <a href="{% url 'pengguna' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

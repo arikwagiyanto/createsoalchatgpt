@@ -1,0 +1,51 @@
+{% extends 'base_user.html' %}
+
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h1 class="mb-0">Daftar Mapel</h1>  
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-sm table-hover" id="table-1">
+                                        <thead>
+                                            <tr class="font-15">
+                                                <th>NAMA MAPEL</th>
+                                                <th>AKSI</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ request.user.guru.mapel1 }}</td>
+                                                <td>
+                                                    <a href="{% url 'input_soal_pg' request.user.guru.mapel1.id  %}" class="btn btn-primary" >Buat Soal</a>
+                                                </td>
+                                            </tr>
+                                            {% if request.user.guru.mapel2 != None %}
+                                            <tr>
+                                                <td>{{ request.user.guru.mapel2 }}</td>
+                                                <td>
+                                                    <a href="{% url 'input_soal_pg' request.user.guru.mapel2.id %}" class="btn btn-primary" >Buat Soal</a>
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}
+    
