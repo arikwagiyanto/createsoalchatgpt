@@ -40,12 +40,11 @@ class JadwalJagaForm(forms.ModelForm):
         }
         
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     nama_pengguna = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'nama_pengguna']
+        fields = ['username', 'nama_pengguna']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
@@ -64,16 +63,16 @@ class UserUpdateForm(forms.ModelForm):
         return user
 
 class PasswordChangeForm(forms.Form):
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password_lama = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password_baru = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    konfirmasi_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self):
         cleaned_data = super().clean()
-        new_password1 = cleaned_data.get("new_password1")
-        new_password2 = cleaned_data.get("new_password2")
+        password_baru = cleaned_data.get("Password Baru")
+        konfirmasi_password = cleaned_data.get("Konfirmasi Password")
 
-        if new_password1 and new_password2 and new_password1 != new_password2:
+        if password_baru and password_baru and password_baru != konfirmasi_password:
             raise forms.ValidationError("Passwords do not match")
 
         return cleaned_data
