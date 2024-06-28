@@ -11,4 +11,6 @@ urlpatterns = [
     path('jadwal_jaga_guru/', jadwal_jaga_guru, name='jadwal_jaga_guru'),
     
     path('input-soal/<int:pk>', views.input_soal_pg, name='input_soal_pg'),
+    
+    path('settings/', views.user_settings, name='user_settings'),
 ]

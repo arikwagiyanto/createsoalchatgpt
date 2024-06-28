@@ -1,0 +1,32 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Update Profile</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" class="form-horizontal">
+                                {% csrf_token %}
+                                {{ user_form.as_p }}
+                                {{ password_form.as_p }}
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                        <a href="{% url 'beranda' %}" type="submit" class="btn btn-success btn-block">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
