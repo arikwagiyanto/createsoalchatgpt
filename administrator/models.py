@@ -68,15 +68,16 @@ class Soal_pg(models.Model):
     id_pg = models.AutoField(primary_key=True)
     mapel = models.ForeignKey(Mapel, on_delete=models.CASCADE)
     kelas = models.CharField(max_length=100)
-    jurusan = models.CharField(max_length=100)
-    soal_pg = models.TextField()
+    jurusan_rpl = models.BooleanField(default=False)
+    jurusan_tkr = models.BooleanField(default=False)
+    soal_pg = models.TextField(blank=True, null=True)
     pilihan_a = models.TextField()
     pilihan_b = models.TextField()
     pilihan_c = models.TextField()
     pilihan_d = models.TextField()
     pilihan_e = models.TextField()
     jawaban = models.CharField(max_length=1)
-    nomor_soal = models.IntegerField()
+    nomor_soal = models.IntegerField(blank=True, null=True)
     
     def __str__(self):
         return f"Soal {self.id_pg} - {self.mapel.nama_mapel}"
