@@ -78,6 +78,7 @@ class Soal_pg(models.Model):
     pilihan_e = models.TextField()
     jawaban = models.CharField(max_length=1)
     nomor_soal = models.IntegerField(blank=True, null=True)
+    pengguna = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return f"Soal {self.id_pg} - {self.mapel.nama_mapel}"

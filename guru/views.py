@@ -53,23 +53,35 @@ def jadwal_jaga_guru(request):
 @login_required(login_url='loginPage')
 def input_soal_pg(request, pk):
     mapel = get_object_or_404(Mapel, id=pk)
-
-    # Cari soal terakhir berdasarkan mapel yang sesuai dengan id mapel (PK)
-    last_soal = Soal_pg.objects.filter(mapel=mapel).order_by('nomor_soal').last()
+    last_soal = Soal_pg.objects.filter(mapel=mapel, pengguna=request.user).order_by('-nomor_soal').first()
     next_nomor_soal = 1 if not last_soal else last_soal.nomor_soal + 1
 
+    initial_data = {}
+    if last_soal:
+        initial_data.update({
+            'kelas': last_soal.kelas,
+            'jurusan_rpl': last_soal.jurusan_rpl,
+            'jurusan_tkr': last_soal.jurusan_tkr
+        })
+
     if request.method == 'POST':
-        form = SoalForm(request.POST)
+        form = SoalForm(request.POST, initial=initial_data)
         if form.is_valid():
             soal = form.save(commit=False)
-            soal.mapel = mapel  # Set the mapel field before saving
+            soal.mapel = mapel
             soal.nomor_soal = next_nomor_soal
+            soal.pengguna = request.user
             soal.save()
             return redirect('input_soal_pg', pk=pk)
     else:
-        form = SoalForm()
+        form = SoalForm(initial=initial_data)
 
-    return render(request, 'input_soal_pg.html', {'form': form, 'nomor_soal': next_nomor_soal, 'mapel': mapel})
+    return render(request, 'input_soal_pg.html', {
+        'form': form,
+        'nomor_soal': next_nomor_soal,
+        'mapel': mapel
+    })
+
 
 @login_required
 def user_settings(request):

@@ -29,7 +29,7 @@ class SoalForm(forms.ModelForm):
             'pilihan_e': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Masukkan Pilihan E'}),
             'jawaban': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Masukkan Jawaban Benar'}),
         }
-
+        
 class UserUpdateForm(forms.ModelForm):
     nama_pengguna = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
 
