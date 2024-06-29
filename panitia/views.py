@@ -146,7 +146,7 @@ def jadwal_jaga_delete(request, pk):
     return render(request, 'jadwal_jaga_confirm_delete.html', {'jadwal': jadwal})
 
 @login_required
-def user_settings(request):
+def panitia_settings(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         password_form = PasswordChangeForm(request.POST)
