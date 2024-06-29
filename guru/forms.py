@@ -30,6 +30,26 @@ class SoalForm(forms.ModelForm):
             'jawaban': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Masukkan Jawaban Benar'}),
         }
         
+class SoalEsaiForm(forms.ModelForm):
+    class Meta:
+        model = SoalEsai
+        fields = ['kelas', 'jurusan_rpl', 'jurusan_tkr', 'soal_esai', 'jawaban_esai']
+        labels = {
+            'soal_esai': 'Soal Esai',
+            'jawaban_esai': 'Jawaban Esai',
+            'mapel': 'Mapel',
+            'kelas': 'Kelas',
+            'jurusan_rpl': 'Jurusan RPL',
+            'jurusan_tkr': 'Jurusan TKR',
+        }
+        widgets = {
+            'soal_esai': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Masukkan Soal Esai'}),
+            'jawaban_esai': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Masukkan Jawaban Esai'}),
+            'kelas': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Masukkan Kelas'}),
+            'jurusan_rpl': forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox', 'style': 'margin-left:10px; margin-top:7px'}),
+            'jurusan_tkr': forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox', 'style': 'margin-left:10px; margin-top:7px'}),
+        }
+        
 class UserUpdateForm(forms.ModelForm):
     nama_pengguna = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
 

@@ -2,10 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect # type: ignore
 from django.contrib.auth.decorators import login_required
 from website.decorators import ijinkan_pengguna
 from administrator.models import *
-from .forms import UserUpdateForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from .forms import SoalForm
+from .forms import *
 
 
 @login_required(login_url='loginPage')
@@ -56,6 +55,10 @@ def input_soal_pg(request, pk):
     last_soal = Soal_pg.objects.filter(mapel=mapel, pengguna=request.user).order_by('-nomor_soal').first()
     next_nomor_soal = 1 if not last_soal else last_soal.nomor_soal + 1
 
+    if next_nomor_soal > 10:
+        messages.info(request, 'Anda telah selesai membuat 10 soal pilihan ganda. Silahkan lanjut membuat soal essai.')
+        return redirect('input_soal_essai', pk=pk)
+
     initial_data = {}
     if last_soal:
         initial_data.update({
@@ -81,6 +84,44 @@ def input_soal_pg(request, pk):
         'nomor_soal': next_nomor_soal,
         'mapel': mapel
     })
+    
+
+@ijinkan_pengguna(yang_diizinkan=['guru'])
+@login_required(login_url='loginPage')
+def input_soal_essai(request, pk):
+    mapel = get_object_or_404(Mapel, id=pk)
+    last_soal_pg = Soal_pg.objects.filter(
+        mapel=mapel, pengguna=request.user).order_by('-nomor_soal').first()
+    last_soal_esai = SoalEsai.objects.filter(
+        mapel=mapel, pengguna=request.user).order_by('-nomor_soal').first()
+    next_nomor_soal = (last_soal_esai.nomor_soal + 1) if last_soal_esai else 1
+
+    initial_data = {'nomor_soal': next_nomor_soal}
+    if last_soal_pg:
+        initial_data.update({
+            'kelas': last_soal_pg.kelas,
+            'jurusan_rpl': last_soal_pg.jurusan_rpl,
+            'jurusan_tkr': last_soal_pg.jurusan_tkr
+        })
+
+    if request.method == 'POST':
+        form = SoalEsaiForm(request.POST, initial=initial_data)
+        if form.is_valid():
+            soal_esai = form.save(commit=False)
+            soal_esai.mapel = mapel
+            soal_esai.nomor_soal = next_nomor_soal
+            soal_esai.pengguna = request.user
+            soal_esai.save()
+            return redirect('input_soal_essai', pk=pk)
+    else:
+        form = SoalEsaiForm(initial=initial_data)
+
+    return render(request, 'input_soal_essai.html', {
+        'form': form,
+        'mapel': mapel,
+        'nomor_soal': next_nomor_soal
+    })
+
 
 
 @login_required
@@ -90,25 +131,18 @@ def user_settings(request):
         password_form = PasswordChangeForm(request.POST)
 
         if user_form.is_valid() and password_form.is_valid():
-            user_form.save()
-
-            old_password = password_form.cleaned_data.get('old_password')
             new_password = password_form.cleaned_data.get('new_password1')
-            if request.user.check_password(old_password):
+            if request.user.check_password(password_form.cleaned_data.get('old_password')):
                 request.user.set_password(new_password)
                 request.user.save()
-                update_session_auth_hash(request, request.user)  # Keep the user logged in after password change
+                update_session_auth_hash(request, request.user)
                 messages.success(request, 'Your profile and password have been updated!')
-                return redirect('user_settings')
             else:
-                messages.error(request, 'Old password is incorrect')
+                password_form.add_error('old_password', 'Old password is incorrect')
+        else:
+            password_form.add_error(None, 'Form is invalid')
     else:
         user_form = UserUpdateForm(instance=request.user)
         password_form = PasswordChangeForm()
 
-    context = {
-        'user_form': user_form,
-        'password_form': password_form,
-    }
-
-    return render(request, 'settings.html', context)
+    return render(request, 'settings.html', {'user_form': user_form, 'password_form': password_form})
