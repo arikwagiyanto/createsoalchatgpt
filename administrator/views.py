@@ -12,7 +12,6 @@ def beranda(request):
     context = {
         'judul': 'Halaman Beranda',
         'menu': 'beranda',
-        
     }
     return render(request, 'beranda.html', context)
 
@@ -29,24 +28,6 @@ def pengguna(request):
 
 @ijinkan_pengguna(yang_diizinkan=['administrator'])
 @login_required(login_url='loginPage')
-def cekjadwal(request):
-    context = {
-        'judul': 'Halaman lihat jadwal',
-        'menu': 'cekjadwal',
-    }
-    return render(request, 'lihatjadwal.html', context)
- 
-@ijinkan_pengguna(yang_diizinkan=['administrator'])
-@login_required(login_url='loginPage')
-def ceksoal(request):
-    context = {
-        'judul': 'Halaman lihat soal',
-        'menu': 'ceksoal',
-    }
-    return render(request, 'lihatsoal.html', context)
-
-@ijinkan_pengguna(yang_diizinkan=['administrator'])
-@login_required(login_url='loginPage')
 def panitia_add(request):
     user_form = UserForm()
     panitia_form = PanitiaForm()
@@ -59,11 +40,9 @@ def panitia_add(request):
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
-            
             # Add user to Panitia group
             panitia_group, created = Group.objects.get_or_create(name='Panitia')
             user.groups.add(panitia_group)
-            
             # Save Panitia data
             panitia = panitia_form.save(commit=False)
             panitia.user = user
@@ -94,11 +73,9 @@ def guru_add(request):
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
-            
             # Add user to Guru group
             guru_group, created = Group.objects.get_or_create(name='Guru')
             user.groups.add(guru_group)
-            
             # Save Guru data
             guru = guru_form.save(commit=False)
             guru.user = user

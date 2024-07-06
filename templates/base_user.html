@@ -1,17 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- index.html  21 Nov 2019 03:44:50 GMT -->
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>SMKRADJA</title>
-  <!-- General CSS Files -->
+  <!--perubahan kode-->
   <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %} ">
-  <!-- Template CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %} ">
   <link rel="stylesheet" href="{% static 'assets/css/components.css' %} ">
-  <!-- Custom style CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/custom.css' %} ">
   <link rel='shortcut icon' type='image/x-icon' href= "{% static 'assets/img/l.png' %}" />
 </head>
@@ -24,7 +21,6 @@
       {% include "navbar.html" %}
       
       {% include "sidebar.html" %}
-      <!-- Main Content -->
       
       {% block content %}
         
@@ -39,15 +35,10 @@
       </footer>
     </div>
   </div>
-  <!-- General JS Scripts -->
   <script src="{% static 'assets/js/app.min.js' %} "></script>
-  <!-- JS Libraies -->
   <script src="{% static 'assets/bundles/apexcharts/apexcharts.min.js' %} "></script>
-  <!-- Page Specific JS File -->
   <script src="{% static 'assets/js/page/index.js' %} "></script>
-  <!-- Template JS File -->
   <script src="{% static 'assets/js/scripts.js' %} "></script>
-  <!-- Custom JS File -->
   <script src="{% static 'assets/js/custom.js' %} "></script>
 </body>
 

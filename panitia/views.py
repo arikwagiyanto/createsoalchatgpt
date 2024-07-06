@@ -145,6 +145,8 @@ def jadwal_jaga_delete(request, pk):
         return redirect('jadwal_jaga')
     return render(request, 'jadwal_jaga_confirm_delete.html', {'jadwal': jadwal})
 
+
+
 @login_required
 def panitia_settings(request):
     if request.method == 'POST':

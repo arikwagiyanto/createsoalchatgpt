@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jun 2024 pada 16.19
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 06 Jul 2024 pada 05.37
+-- Versi server: 10.4.18-MariaDB
+-- Versi PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,51 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `administrator_dokumensoal`
+--
+
+CREATE TABLE `administrator_dokumensoal` (
+  `id` bigint(20) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `mapel_id` bigint(20) NOT NULL,
+  `pengguna_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `administrator_dokumensoal`
+--
+
+INSERT INTO `administrator_dokumensoal` (`id`, `file_name`, `file_path`, `created_at`, `mapel_id`, `pengguna_id`) VALUES
+(22, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-01 22:57:26.791904', 1, 6),
+(23, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-01 23:05:53.233779', 1, 6),
+(24, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-02 00:42:50.053459', 1, 6),
+(25, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-02 01:10:46.615217', 1, 6),
+(26, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-02 01:13:35.414921', 1, 6),
+(27, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-02 01:16:28.676003', 1, 6),
+(28, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-02 01:17:36.807653', 1, 6),
+(29, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:03:02.137427', 1, 6),
+(30, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:11:47.004313', 1, 6),
+(31, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:13:41.469304', 1, 6),
+(32, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:15:33.057101', 1, 6),
+(33, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:24:15.560646', 1, 6),
+(34, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:26:52.220947', 1, 6),
+(35, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:39:54.062910', 1, 6),
+(36, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:45:06.440851', 1, 6),
+(37, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:55:05.633493', 1, 6),
+(38, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:55:11.116437', 1, 6),
+(39, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 02:59:04.060852', 1, 6),
+(40, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:01:28.454466', 1, 6),
+(41, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:12:09.456643', 1, 6),
+(42, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:14:13.926734', 1, 6),
+(43, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:19:11.434729', 1, 6),
+(44, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:22:12.175448', 1, 6),
+(45, 'soal_Bahasa Indonesia_guru2.pdf', 'dokumen_soal/soal_Bahasa Indonesia_guru2.pdf', '2024-07-06 03:22:12.276144', 1, 6);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `administrator_guru`
 --
 
@@ -37,15 +82,15 @@ CREATE TABLE `administrator_guru` (
   `jenis_kelamin` varchar(10) DEFAULT NULL,
   `mapel1_id` bigint(20) DEFAULT NULL,
   `mapel2_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `administrator_guru`
 --
 
 INSERT INTO `administrator_guru` (`id`, `nama_pengguna`, `alamat`, `no_hp`, `email`, `user_id`, `jenis_kelamin`, `mapel1_id`, `mapel2_id`) VALUES
-(1, 'Guru Satu', 'jalan guru', '0876555555', 'guru@gmail.com', 5, 'Perempuan', 3, 4),
-(2, 'Guru Dua', 'jalan gurudua', '08555', 'guru2@gmail.com', 6, 'Laki-laki', 1, 3);
+(2, 'Guru Dua', 'jalan gurudua', '08555', 'guru2@gmail.com', 6, 'Laki-laki', 1, 3),
+(3, 'Rizky Maulana', 'jalan kemana', '085', 'rm@gmail.com', 7, 'Laki-laki', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -57,7 +102,14 @@ CREATE TABLE `administrator_jadwaljaga` (
   `id` bigint(20) NOT NULL,
   `tanggal` date NOT NULL,
   `file_jadwal` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `administrator_jadwaljaga`
+--
+
+INSERT INTO `administrator_jadwaljaga` (`id`, `tanggal`, `file_jadwal`) VALUES
+(1, '2024-07-01', 'JADWAL_UJIAN_DAN_PENGAWAS_USP__PAT_HXXTovW.pdf');
 
 -- --------------------------------------------------------
 
@@ -69,7 +121,14 @@ CREATE TABLE `administrator_jadwalujian` (
   `id` bigint(20) NOT NULL,
   `tanggal` date NOT NULL,
   `file_jadwal` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `administrator_jadwalujian`
+--
+
+INSERT INTO `administrator_jadwalujian` (`id`, `tanggal`, `file_jadwal`) VALUES
+(2, '2024-07-01', 'JADWAL_UJIAN_USP__PAT_VdQ3CEw.pdf');
 
 -- --------------------------------------------------------
 
@@ -80,7 +139,7 @@ CREATE TABLE `administrator_jadwalujian` (
 CREATE TABLE `administrator_mapel` (
   `id` bigint(20) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `administrator_mapel`
@@ -108,7 +167,7 @@ CREATE TABLE `administrator_panitia` (
   `mapel1_id` bigint(20) NOT NULL,
   `mapel2_id` bigint(20) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `administrator_panitia`
@@ -133,14 +192,18 @@ CREATE TABLE `administrator_soalesai` (
   `kelas` varchar(100) DEFAULT NULL,
   `pengguna_id` int(11) DEFAULT NULL,
   `nomor_soal` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `administrator_soalesai`
 --
 
 INSERT INTO `administrator_soalesai` (`id`, `soal_esai`, `jawaban_esai`, `mapel_id`, `jurusan_rpl`, `jurusan_tkr`, `kelas`, `pengguna_id`, `nomor_soal`) VALUES
-(1, 'tes', 'lg', 3, 1, 0, 'XI', 5, 1);
+(6, 'sbnd snb', 'sdjfj', 1, 0, 1, 'XIA', 6, 1),
+(7, 'sdnjhfb', 'nsdbfb', 1, 0, 1, 'XIA', 6, 2),
+(8, 'sncasjb', 'sdnjks', 1, 0, 1, 'XIA', 6, 3),
+(9, 'sdncbsab', 'sabdh', 1, 0, 1, 'XIA', 6, 4),
+(10, 'sdbcj', 'dsb', 1, 0, 1, 'XIA', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -163,7 +226,7 @@ CREATE TABLE `administrator_soal_pg` (
   `jurusan_tkr` tinyint(1) NOT NULL,
   `nomor_soal` int(11) DEFAULT NULL,
   `pengguna_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `administrator_soal_pg`
@@ -171,17 +234,16 @@ CREATE TABLE `administrator_soal_pg` (
 
 INSERT INTO `administrator_soal_pg` (`id_pg`, `kelas`, `soal_pg`, `pilihan_a`, `pilihan_b`, `pilihan_c`, `pilihan_d`, `pilihan_e`, `jawaban`, `mapel_id`, `jurusan_rpl`, `jurusan_tkr`, `nomor_soal`, `pengguna_id`) VALUES
 (1, 'X', 'kasdl', 'dksaj', 'dsa', 'dksja', 'dasjkl', 'aksldj', 'A', 3, 1, 0, 1, 6),
-(2, 'XI', 'dsjakl', 'kldsjakl', 'dklasj', 'dsioud', 'diouaoi', 'iwer', 'B', 3, 1, 0, 1, 5),
-(3, 'X', 'dklsajlkd', 'dlkjsaklj', 'dsajldj', 'dsajdl', 'daskljdl', 'djdlsaj', 'C', 4, 1, 1, 1, 5),
-(4, 'XI', 'kljlkda', 'dsalkj', 'dkjsalqw', 'opeiqpo', 'dajl', 'lkl;k', 'D', 3, 1, 0, 2, 5),
-(5, 'XI', 'oiuoiu', 'jkhkjh', 'mnb', 'uyui', 'hkj', 'ghgjh', 'C', 3, 1, 0, 3, 5),
-(6, 'XI', 'ieuiquweyq', 'daiuysudiweq', 'uyeiqwyei', 'eiuqwyeiuyq', 'euwyuiq', 'iuwqye', 'B', 3, 1, 0, 4, 5),
-(7, 'XI', 'dlasjdk', 'dlaskjd', 'eowiquedassd', 'dasnmdb', 'danmsbd', 'ewque', 'A', 3, 1, 0, 5, 5),
-(8, 'XI', 'dklasjld', 'ldjasl', 'ioqwe', 'oeuqwo', 'eoqwiue', 'eoiwuqe', 'A', 3, 1, 0, 6, 5),
-(9, 'XI', 'dlksadj', 'dlksajewq', 'ewqioeuqo', 'ewoqueo', 'wqeuqwiod', 'djahskd', 'C', 3, 1, 0, 7, 5),
-(10, 'XI', 'dasd', 'ldkasjdl', 'dklasjd', 'dlkasjdkl', 'kdlsjalewq', 'ieuqwoeu', 'D', 3, 1, 0, 8, 5),
-(11, 'XI', 'daskdjljk', 'daskljdlj', 'diowqeuo', 'eoyqwuir', 'riuqyiur', 'pqwieoiq', 'B', 3, 1, 0, 9, 5),
-(12, 'XI', 'ldkjaslkjd', 'qiewoqu', 'euywqiuey', 'dhjahd', 'nasd,n,a', 'opiepoqwi', 'B', 3, 1, 0, 10, 5);
+(13, 'XIA', 'asdaklsndkanskdasndanjk', 'jasdkna', 'akjsndjkasnk', 'kdajsnkdnk', 'asdnjkasndjk', 'afsndjkn', 'A', 1, 0, 1, 1, 6),
+(14, 'XIA', 'sdbnjhasdb', 'asdjnas', 'asndksjk', 'asjkdnsn', 'dansdjn', 'fasnjn', 'B', 1, 0, 1, 2, 6),
+(15, 'XIA', 'asbdhaj', 'andjkn', 'adjksndjk', 'aknsn', 'anksn', 'aksn', 'C', 1, 0, 1, 3, 6),
+(16, 'XIA', 'sajndjh', 'asdnkjn', 'aksndjk', 'dnakj', 'askdn', 'kakq', 'D', 1, 0, 1, 4, 6),
+(17, 'XIA', 'smdnj', 'askndjk', 'ajsndk', 'ajkn', 'daksjn', 'dakn', 'E', 1, 0, 1, 5, 6),
+(18, 'XIA', 'sjdbjh', 'asjdnjk', 'asdnjk', 'adkjk', 'skdnk', 'jandjk', 'B', 1, 0, 1, 6, 6),
+(19, 'XIA', 'sdmbjha', 'sdn', 'skdkq', 'fsk', 'kandq', 'sdk', 'A', 1, 0, 1, 7, 6),
+(20, 'XIA', 'sdjhbjsh', 'sjdnj', 'sjdnfjqsjbf', 'sjkfn', 'sjdq', 'sfsf', 'C', 1, 0, 1, 8, 6),
+(21, 'XIA', 'sjdjk', 'skdnk', 'skdj', 'dsnk', 'skdnfj', 'B', 'B', 1, 0, 1, 9, 6),
+(22, 'XIA', 'sjhdbhjb', 'sdjnj', 'sjdnfj', 'fsdj', 'sjdnb', 'sjhdjh', 'C', 1, 0, 1, 10, 6);
 
 -- --------------------------------------------------------
 
@@ -192,7 +254,7 @@ INSERT INTO `administrator_soal_pg` (`id_pg`, `kelas`, `soal_pg`, `pilihan_a`, `
 CREATE TABLE `auth_group` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_group`
@@ -213,7 +275,7 @@ CREATE TABLE `auth_group_permissions` (
   `id` bigint(20) NOT NULL,
   `group_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_group_permissions`
@@ -288,7 +350,7 @@ CREATE TABLE `auth_permission` (
   `name` varchar(255) NOT NULL,
   `content_type_id` int(11) NOT NULL,
   `codename` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_permission`
@@ -350,7 +412,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (53, 'Can add mapel', 14, 'add_mapel'),
 (54, 'Can change mapel', 14, 'change_mapel'),
 (55, 'Can delete mapel', 14, 'delete_mapel'),
-(56, 'Can view mapel', 14, 'view_mapel');
+(56, 'Can view mapel', 14, 'view_mapel'),
+(57, 'Can add dokumen soal', 15, 'add_dokumensoal'),
+(58, 'Can change dokumen soal', 15, 'change_dokumensoal'),
+(59, 'Can delete dokumen soal', 15, 'delete_dokumensoal'),
+(60, 'Can view dokumen soal', 15, 'view_dokumensoal');
 
 -- --------------------------------------------------------
 
@@ -370,17 +436,17 @@ CREATE TABLE `auth_user` (
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_user`
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$720000$dG2G4byj5WgJuPuSkm676z$7N8fG/hKabLdfofRuoa8bud9WW3kKCkhDFPz4OzC09M=', '2024-06-28 04:04:25.632850', 1, 'ardesign', '', '', 'ar@gmail.com', 1, 1, '2024-06-28 02:40:04.000000'),
-(4, 'pbkdf2_sha256$720000$R9RcpBOOrH18eRN3mW54i3$QeyS8wLYpODvrOnGpJh/YMuKO/gRaybv3EJj/XnU5aA=', '2024-06-28 03:09:33.415353', 0, 'panitia', '', '', '', 0, 1, '2024-06-28 03:04:56.899567'),
-(5, 'pbkdf2_sha256$720000$GuBtduKtArwHK2L3mV6ygj$vPoxocm7wdBHD5ccxeo/SYV84gPKuqVHC9eieHqeYn4=', '2024-06-28 22:35:24.865596', 0, 'guru', '', '', '', 0, 1, '2024-06-28 03:05:39.561486'),
-(6, 'pbkdf2_sha256$720000$8mvsAfxnrcFiKMmlE3ohdr$uoyXM1OfotlIFUawdQ+ffL+FEXEacy3dAR8KP7f7xIg=', '2024-06-28 04:26:46.228832', 0, 'guru2', '', '', '', 0, 1, '2024-06-28 03:07:40.405440');
+(1, 'pbkdf2_sha256$720000$dG2G4byj5WgJuPuSkm676z$7N8fG/hKabLdfofRuoa8bud9WW3kKCkhDFPz4OzC09M=', '2024-07-04 17:12:24.586892', 1, 'ardesign', '', '', 'ar@gmail.com', 1, 1, '2024-06-28 02:40:04.000000'),
+(4, 'pbkdf2_sha256$720000$R9RcpBOOrH18eRN3mW54i3$QeyS8wLYpODvrOnGpJh/YMuKO/gRaybv3EJj/XnU5aA=', '2024-07-06 03:23:59.978346', 0, 'panitia', '', '', '', 0, 1, '2024-06-28 03:04:56.899567'),
+(6, 'pbkdf2_sha256$720000$8mvsAfxnrcFiKMmlE3ohdr$uoyXM1OfotlIFUawdQ+ffL+FEXEacy3dAR8KP7f7xIg=', '2024-07-06 02:01:34.571486', 0, 'guru2', '', '', '', 0, 1, '2024-06-28 03:07:40.405440'),
+(7, 'pbkdf2_sha256$720000$ZFwAkeqmoMRqDn8bqdUnFG$ZlGyxnEOQy80MIshBOXGnptd8ya2JyOxh/R0XgVNJiQ=', '2024-07-01 23:16:01.057999', 0, 'rizky', '', '', '', 0, 1, '2024-07-01 23:11:26.873484');
 
 -- --------------------------------------------------------
 
@@ -392,7 +458,7 @@ CREATE TABLE `auth_user_groups` (
   `id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_user_groups`
@@ -401,8 +467,8 @@ CREATE TABLE `auth_user_groups` (
 INSERT INTO `auth_user_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 4, 2),
-(3, 5, 3),
-(4, 6, 3);
+(4, 6, 3),
+(5, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -414,7 +480,7 @@ CREATE TABLE `auth_user_user_permissions` (
   `id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `auth_user_user_permissions`
@@ -493,7 +559,7 @@ CREATE TABLE `django_admin_log` (
   `change_message` longtext NOT NULL,
   `content_type_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `django_admin_log`
@@ -523,7 +589,7 @@ CREATE TABLE `django_content_type` (
   `id` int(11) NOT NULL,
   `app_label` varchar(100) NOT NULL,
   `model` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `django_content_type`
@@ -531,6 +597,7 @@ CREATE TABLE `django_content_type` (
 
 INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (1, 'admin', 'logentry'),
+(15, 'administrator', 'dokumensoal'),
 (10, 'administrator', 'guru'),
 (7, 'administrator', 'jadwaljaga'),
 (8, 'administrator', 'jadwalujian'),
@@ -556,7 +623,7 @@ CREATE TABLE `django_migrations` (
   `app` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `django_migrations`
@@ -587,7 +654,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (22, 'sessions', '0001_initial', '2024-06-28 02:30:25.192136'),
 (23, 'administrator', '0004_soal_pg_pengguna', '2024-06-28 04:16:17.537063'),
 (24, 'administrator', '0005_soalesai_jurusan_rpl_soalesai_jurusan_tkr_and_more', '2024-06-29 13:58:27.201714'),
-(25, 'administrator', '0006_soalesai_nomor_soal', '2024-06-29 14:09:34.711698');
+(25, 'administrator', '0006_soalesai_nomor_soal', '2024-06-29 14:09:34.711698'),
+(26, 'administrator', '0007_dokumensoal', '2024-07-01 09:14:34.961795');
 
 -- --------------------------------------------------------
 
@@ -599,16 +667,24 @@ CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `django_session`
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('97qkewn14fz1oakoj9445v9vn4wsakg9', '.eJxVjEEOwiAQRe_C2pAywJS6dO8ZGmBmpGpoUtqV8e7apAvd_vfef6kxbmsZt8bLOJE6K6dOv1uK-cF1B3SP9TbrPNd1mZLeFX3Qpq8z8fNyuH8HJbbyrRnAZjEo1ovx4BICgukdoTeShACGBKEjtuiH3rIgmgAk7LsuZCL1_gDLhzd4:1sPw1n:LvY3v53jEZF4B01wqBBIAub3xJIbVNcdtyjwZL6200k', '2024-07-20 03:23:59.985345'),
+('9rnkuk7f18hm4fa3ynfru54g0cwnf2do', '.eJxVjEEOwiAQRe_C2pAywJS6dO8ZGmBmpGpoUtqV8e7apAvd_vfef6kxbmsZt8bLOJE6K6dOv1uK-cF1B3SP9TbrPNd1mZLeFX3Qpq8z8fNyuH8HJbbyrRnAZjEo1ovx4BICgukdoTeShACGBKEjtuiH3rIgmgAk7LsuZCL1_gDLhzd4:1sO9H2:QAVG8xTincUZEiip9A7sh5fCyRGgM3BLi-eiE66U4Bo', '2024-07-15 05:08:20.172240'),
+('b6staxdc10778ibq1bzzw5gpf7pqfvf3', '.eJxVjEsOwiAUAO_C2hA-hUdduu8ZyAMeUjWQlHZlvLsh6UK3M5N5M4_HXvzRafNrYldm2eWXBYxPqkOkB9Z747HVfVsDHwk_bedLS_S6ne3foGAvY-s0qEnlTCQ0RQjZAaAES0ZYGQGMUzagIanTLJRGg5NKwmB0Os9Zs88X1es3fg:1sOKSn:vv89LAXGk-StVIeCnI6iY6R2Uyd9TZjM3hAW6MErkTc', '2024-07-15 17:05:13.874186'),
+('e0m4pfqtfete33crzfcum4vrw4xjnlus', '.eJxVjEEOwiAQRe_C2hDKMAIu3fcMZMpMpWpoUtqV8e7apAvd_vfef6lE21rS1mRJE6uL6tTpdxsoP6TugO9Ub7POc12XadC7og_adD-zPK-H-3dQqJVv7aUDlGgJI4IXZskA5MhYCugkRGNHxwEzggU0EQM7cRQtj4zn7NX7A9UgN4M:1sPQ0O:aznvi7rscqAdKuK4psyAtQJYPUXX8ofXjj4QSObshvI', '2024-07-18 17:12:24.621306'),
+('fjlo6c6l0b4d4nnvm2710vmzn3o4omhl', '.eJxVjEsOwiAUAO_C2hA-hUdduu8ZyAMeUjWQlHZlvLsh6UK3M5N5M4_HXvzRafNrYldm2eWXBYxPqkOkB9Z747HVfVsDHwk_bedLS_S6ne3foGAvY-s0qEnlTCQ0RQjZAaAES0ZYGQGMUzagIanTLJRGg5NKwmB0Os9Zs88X1es3fg:1sNaYq:0ERMriu3zUBonwwDeM7uKeIqxtV5R8yiSmVYV8puroM', '2024-07-13 16:04:24.909601'),
+('lvdah28h1361hmncw4eqwzydm60mbbc6', '.eJxVjEEOwiAQRe_C2hAoUMCle89AhplRqgaS0q6Md7dNutDtf-_9t0iwLiWtnec0kTgLJ06_WwZ8ct0BPaDem8RWl3nKclfkQbu8NuLX5XD_Dgr0stUA9uZ0iHmICMSaotec2UAwBE45jdFm8GoIYcRNNl5biqNFH7UCReLzBfq0N_k:1sOBPj:fZdH5P5CC-ElLimBO0F-5xpn1Qsiyziu4inJp8O30X0', '2024-07-15 07:25:27.148680'),
+('o74nrgo673iaf8chfjj63g9jxweg43d2', '.eJxVjEEOwiAQRe_C2hDKMAIu3fcMZMpMpWpoUtqV8e7apAvd_vfef6lE21rS1mRJE6uL6tTpdxsoP6TugO9Ub7POc12XadC7og_adD-zPK-H-3dQqJVv7aUDlGgJI4IXZskA5MhYCugkRGNHxwEzggU0EQM7cRQtj4zn7NX7A9UgN4M:1sOhe6:08McEO2YcHHUBEobnS9iFq8hw6q7SryiyXNyTPlScHU', '2024-07-16 17:50:26.315736'),
 ('p7gjut82er9sof0svk3v6sow04ezf6i9', '.eJxVjEEOwiAQRe_C2pAywJS6dO8ZGmBmpGpoUtqV8e7apAvd_vfef6kxbmsZt8bLOJE6K6dOv1uK-cF1B3SP9TbrPNd1mZLeFX3Qpq8z8fNyuH8HJbbyrRnAZjEo1ovx4BICgukdoTeShACGBKEjtuiH3rIgmgAk7LsuZCL1_gDLhzd4:1sN1zR:MLrYCaXK7Edw1ZSaFZ5DhSB2iuG83h6s1IKfckC1_PU', '2024-07-12 03:09:33.420791'),
 ('tyv1le0g7nzmppcihrbdl4ocacr764oj', '.eJxVjEsOwiAUAO_C2hA-hUdduu8ZyAMeUjWQlHZlvLsh6UK3M5N5M4_HXvzRafNrYldm2eWXBYxPqkOkB9Z747HVfVsDHwk_bedLS_S6ne3foGAvY-s0qEnlTCQ0RQjZAaAES0ZYGQGMUzagIanTLJRGg5NKwmB0Os9Zs88X1es3fg:1sN2qv:fRNUHJPZdWmJ5s_yc92XIg5pj3El0ayIQ4CSCuSIOwY', '2024-07-12 04:04:49.902421'),
-('vytj5gi27mdznsazlf9qtee6df4jq9u0', '.eJxVjEEOwiAQRe_C2hAoUMCle89AhplRqgaS0q6Md7dNutDtf-_9t0iwLiWtnec0kTgLJ06_WwZ8ct0BPaDem8RWl3nKclfkQbu8NuLX5XD_Dgr0stUA9uZ0iHmICMSaotec2UAwBE45jdFm8GoIYcRNNl5biqNFH7UCReLzBfq0N_k:1sNKBg:vsxgysmZlJDresFdhiYS0rSmmulj3nwn7GIm_NnGopk', '2024-07-12 22:35:24.886041');
+('vytj5gi27mdznsazlf9qtee6df4jq9u0', '.eJxVjEEOwiAQRe_C2hAoUMCle89AhplRqgaS0q6Md7dNutDtf-_9t0iwLiWtnec0kTgLJ06_WwZ8ct0BPaDem8RWl3nKclfkQbu8NuLX5XD_Dgr0stUA9uZ0iHmICMSaotec2UAwBE45jdFm8GoIYcRNNl5biqNFH7UCReLzBfq0N_k:1sNKBg:vsxgysmZlJDresFdhiYS0rSmmulj3nwn7GIm_NnGopk', '2024-07-12 22:35:24.886041'),
+('yis4nf2su21tx2xat5j5kg3u74u8mlza', '.eJxVjEsOwiAUAO_C2hA-hUdduu8ZyAMeUjWQlHZlvLsh6UK3M5N5M4_HXvzRafNrYldm2eWXBYxPqkOkB9Z747HVfVsDHwk_bedLS_S6ne3foGAvY-s0qEnlTCQ0RQjZAaAES0ZYGQGMUzagIanTLJRGg5NKwmB0Os9Zs88X1es3fg:1sPuk2:ErPTQHaD67Tx9qj7Gqc1fPDxpvFIKVANKX0VRX7A8-s', '2024-07-20 02:01:34.605338');
 
 -- --------------------------------------------------------
 
@@ -619,11 +695,19 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 CREATE TABLE `panitia_mapel` (
   `id` bigint(20) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `administrator_dokumensoal`
+--
+ALTER TABLE `administrator_dokumensoal`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `administrator_dokume_mapel_id_5f30ff65_fk_administr` (`mapel_id`),
+  ADD KEY `administrator_dokumensoal_pengguna_id_9540f9df_fk_auth_user_id` (`pengguna_id`);
 
 --
 -- Indeks untuk tabel `administrator_guru`
@@ -761,22 +845,28 @@ ALTER TABLE `panitia_mapel`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `administrator_dokumensoal`
+--
+ALTER TABLE `administrator_dokumensoal`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
 -- AUTO_INCREMENT untuk tabel `administrator_guru`
 --
 ALTER TABLE `administrator_guru`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `administrator_jadwaljaga`
 --
 ALTER TABLE `administrator_jadwaljaga`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `administrator_jadwalujian`
 --
 ALTER TABLE `administrator_jadwalujian`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `administrator_mapel`
@@ -794,13 +884,13 @@ ALTER TABLE `administrator_panitia`
 -- AUTO_INCREMENT untuk tabel `administrator_soalesai`
 --
 ALTER TABLE `administrator_soalesai`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `administrator_soal_pg`
 --
 ALTER TABLE `administrator_soal_pg`
-  MODIFY `id_pg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_group`
@@ -818,19 +908,19 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT untuk tabel `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_user_groups`
 --
 ALTER TABLE `auth_user_groups`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_user_user_permissions`
@@ -848,13 +938,13 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT untuk tabel `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `panitia_mapel`
@@ -865,6 +955,13 @@ ALTER TABLE `panitia_mapel`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `administrator_dokumensoal`
+--
+ALTER TABLE `administrator_dokumensoal`
+  ADD CONSTRAINT `administrator_dokume_mapel_id_5f30ff65_fk_administr` FOREIGN KEY (`mapel_id`) REFERENCES `administrator_mapel` (`id`),
+  ADD CONSTRAINT `administrator_dokumensoal_pengguna_id_9540f9df_fk_auth_user_id` FOREIGN KEY (`pengguna_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `administrator_guru`

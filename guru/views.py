@@ -1,10 +1,15 @@
+import os
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect # type: ignore
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from website.decorators import ijinkan_pengguna
 from administrator.models import *
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from .forms import *
+from xhtml2pdf import pisa
+from django.template.loader import render_to_string
 
 
 @login_required(login_url='loginPage')
@@ -90,6 +95,13 @@ def input_soal_pg(request, pk):
 @login_required(login_url='loginPage')
 def input_soal_essai(request, pk):
     mapel = get_object_or_404(Mapel, id=pk)
+    jumlah_soal_esai = SoalEsai.objects.filter(
+        mapel=mapel, pengguna=request.user).count()
+    
+    # Jika jumlah soal esai sudah mencapai 5, arahkan ke halaman generate dokumen soal
+    if jumlah_soal_esai >= 5:
+        return redirect('cek_hasil_soal', pk=pk)
+    
     last_soal_pg = Soal_pg.objects.filter(
         mapel=mapel, pengguna=request.user).order_by('-nomor_soal').first()
     last_soal_esai = SoalEsai.objects.filter(
@@ -122,7 +134,71 @@ def input_soal_essai(request, pk):
         'nomor_soal': next_nomor_soal
     })
 
+@ijinkan_pengguna(yang_diizinkan=['guru'])
+@login_required(login_url='loginPage')
+def cek_hasil_soal(request, pk):
+    # Logika untuk generate dokumen soal
+    mapel = get_object_or_404(Mapel, id=pk)
+    soal_pg = Soal_pg.objects.filter(mapel=mapel, pengguna=request.user)
+    soal_esai = SoalEsai.objects.filter(mapel=mapel, pengguna=request.user)
+    return render(request, 'generate_dokument_soal.html', {
+        'soal_pg': soal_pg,
+        'soal_esai': soal_esai,
+        'mapel': mapel
+    })
+    
+def fetch_resources(uri, rel):
+    if uri.startswith(settings.MEDIA_URL):
+        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+    elif uri.startswith(settings.STATIC_URL):
+        path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
+    else:
+        path = uri
+    return path
+    
+    
+@ijinkan_pengguna(yang_diizinkan=['guru'])
+@login_required(login_url='loginPage')
+def generate_dokumen(request, pk):
+    mapel = get_object_or_404(Mapel, id=pk)
+    soal_pg = Soal_pg.objects.filter(mapel=mapel, pengguna=request.user)
+    soal_esai = SoalEsai.objects.filter(mapel=mapel, pengguna=request.user)
 
+    context = {
+        'soal_pg': soal_pg,
+        'soal_esai': soal_esai,
+        'mapel': mapel
+    }
+
+    html_string = render_to_string('generate_dokument_soal_template.html', context)
+
+    # Tentukan path untuk menyimpan file PDF
+    pdf_filename = f"soal_{mapel}_{request.user.username}.pdf"
+    pdf_directory = os.path.join('dokumen_soal')
+
+    # Pastikan direktori ada
+    os.makedirs(pdf_directory, exist_ok=True)
+
+    # Buat path file PDF
+    pdf_filepath = os.path.join(pdf_directory, pdf_filename)
+
+    # Buat PDF
+    with open(pdf_filepath, "wb") as f:
+        pisa.CreatePDF(html_string, dest=f, link_callback=fetch_resources)
+
+    # Simpan informasi dokumen ke dalam database
+    dokumen_soal = DokumenSoal(
+        mapel=mapel,
+        pengguna=request.user,
+        file_name=pdf_filename,
+        file_path=f'dokumen_soal/{pdf_filename}'
+    )
+    dokumen_soal.save()
+
+    return redirect('buatsoal')
+
+def tes_generate_dokumen(request):
+    return render(request, 'tes.html')
 
 @login_required
 def user_settings(request):

@@ -24,5 +24,6 @@ urlpatterns = [
     path('jadwal_jaga/<int:pk>/edit/', views.jadwal_jaga_update, name='jadwal_jaga_update'),
     path('jadwal_jaga/<int:pk>/delete/', views.jadwal_jaga_delete, name='jadwal_jaga_delete'),
     
+    path('cetak_soal/', views.cetak_soal, name='cetak_soal'),
     path('settings/', views.panitia_settings, name='panitia_settings'),
 ]

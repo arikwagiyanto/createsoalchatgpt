@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class Mapel(models.Model):
     nama_mapel = models.CharField(max_length=50)
-
     def __str__(self):
         return self.nama_mapel
 
@@ -12,7 +11,6 @@ class Panitia(models.Model):
         ('Laki-laki', 'Laki-laki'),
         ('Perempuan', 'Perempuan')
     )
-
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     nama_pengguna = models.CharField(max_length=200, blank=True, null=True)
     alamat = models.TextField(blank=True, null=True, verbose_name='Alamat Panitia')
@@ -24,7 +22,6 @@ class Panitia(models.Model):
 
     def __str__(self):
         return self.nama_pengguna
-
     class Meta:
         verbose_name_plural = "Panitia"
 
@@ -98,3 +95,13 @@ class SoalEsai(models.Model):
 
     def __str__(self):
         return f"Soal Esai {self.id}"
+
+class DokumenSoal(models.Model):
+    mapel = models.ForeignKey(Mapel, on_delete=models.CASCADE)
+    pengguna = models.ForeignKey(User, on_delete=models.CASCADE)
+    file_name = models.CharField(max_length=255)
+    file_path = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.file_name} - {self.mapel.nama}"

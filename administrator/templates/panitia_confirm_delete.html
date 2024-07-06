@@ -12,10 +12,11 @@
                 <form method="POST">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-danger" value="Ya"/>
-                    <a href="{% url 'pengguna' %}" class="btn btn-secondary">Cancel</a>  <!-- Update with the correct URL name -->
-                </form>
+                    <a href="{% url 'pengguna' %}" class="btn btn-secondary">Cancel</a>  
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
+

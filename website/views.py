@@ -13,7 +13,10 @@ def loginPage(request):
         if user_obj is None:
             messages.success(request, 'Username Tidak ditemukan')
             return redirect('loginPage')
-        cocokan = authenticate(request, username=username, password=password)
+        cocokan = authenticate(request, 
+                               username=username, 
+                               password=password
+                               )
         if cocokan is None:
             messages.success(request, 'Password salah')
             return redirect('loginPage')
@@ -28,6 +31,5 @@ def loginPage(request):
 def logoutPage(request):
         logout(request)
         return redirect('loginPage')
-    
 def blankPage(request):
     return render(request,'blank_page.html')

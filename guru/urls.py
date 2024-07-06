@@ -14,4 +14,8 @@ urlpatterns = [
     path('input_soal_essai/<int:pk>/', views.input_soal_essai, name='input_soal_essai'),
     
     path('settings/', views.user_settings, name='user_settings'),
+    
+    path('cek-hasil-soal/<int:pk>/', views.cek_hasil_soal, name='cek_hasil_soal'),
+    path('buat-dokumen-soal/<int:pk>/', views.generate_dokumen, name='buat_dokumen'),
+    path('tes-dokumen-soal', views.tes_generate_dokumen, name='tes_dokumen'),
 ]

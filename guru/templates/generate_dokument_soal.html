@@ -1,0 +1,56 @@
+<!-- guru/templates/guru/jadwal_ujian_list.html -->
+{% extends 'base_user.html' %}
+
+{% block content %}
+  <div class="main-content">
+    <section class="section">
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h1>Daftar Soal Mata Pelajaran {{ mapel }}</h1>
+              </div>
+              <div class="card-body">
+                <section class="pg-section">
+                  <h2>Soal Pilihan Ganda</h2>
+                  <hr>
+                  <div class="row">
+                    {% for pg in soal_pg %}
+                        <div class="col-md-6 mb-3">
+                            <h4>{{ pg.nomor_soal }}. {{ pg.soal_pg }}</h4>
+                            <h6>a. {{ pg.pilihan_a }}</h6>
+                            <h6>b. {{ pg.pilihan_b }}</h6>
+                            <h6>c. {{ pg.pilihan_c }}</h6>
+                            <h6>d. {{ pg.pilihan_d }}</h6>
+                            <h6>e. {{ pg.pilihan_e }}</h6>
+                        </div>
+                    {% endfor %}
+                  </div>
+                </section>
+                <hr>
+                <section class="essay-section">
+                  <h2>Soal Esai</h2>
+                  <hr>
+                  <!-- Ulangi untuk semua soal esai 1-5 -->
+                  <div class="row">
+                    {% for esai in soal_esai %}
+                        <div class="col-md-12">
+                            <h4>{{ esai.nomor_soal }}. {{ esai.soal_esai }}</h4>
+                        </div>
+                    {% endfor %}
+                  </div>
+                </section>
+
+                <div class="row mt-3">
+                    <a href="{% url 'buat_dokumen' mapel.id %}" class="btn btn-primary">Buat Dokumen Soal</a>
+                    <a href="{% url 'tes_dokumen' %}" class="btn btn-primary" target="_blank">tes Dokumen Soal</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
