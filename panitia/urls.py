@@ -4,7 +4,6 @@ urlpatterns = [
     path('', views.beranda_panitia, name='beranda_panitia'),
     path('kelolajadwal/', views.kelolajadwal, name='kelolajadwal'),
     path('lihatsoal/', views.lihatsoal, name='lihatsoal'),
-    path('cetaksoal/', views.cetaksoal, name='cetaksoal'),
     
     #mapel
     path('mapels/', views.mapel_list, name='mapel_list'),
@@ -24,6 +23,7 @@ urlpatterns = [
     path('jadwal_jaga/<int:pk>/edit/', views.jadwal_jaga_update, name='jadwal_jaga_update'),
     path('jadwal_jaga/<int:pk>/delete/', views.jadwal_jaga_delete, name='jadwal_jaga_delete'),
     
-    path('cetak_soal/', views.cetak_soal, name='cetak_soal'),
+    path('cetak_soal/', views.print_soal, name='soal_cetak'),
+    path('cetak_soal/<int:id>', views.print_pdf, name='pdf_cetak'),
     path('settings/', views.panitia_settings, name='panitia_settings'),
 ]

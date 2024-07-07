@@ -17,5 +17,4 @@ urlpatterns = [
     
     path('cek-hasil-soal/<int:pk>/', views.cek_hasil_soal, name='cek_hasil_soal'),
     path('buat-dokumen-soal/<int:pk>/', views.generate_dokumen, name='buat_dokumen'),
-    path('tes-dokumen-soal', views.tes_generate_dokumen, name='tes_dokumen'),
 ]

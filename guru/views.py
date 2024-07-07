@@ -8,8 +8,9 @@ from administrator.models import *
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from .forms import *
+from io import BytesIO
 from xhtml2pdf import pisa
-from django.template.loader import render_to_string
+from django.template.loader import get_template
 
 
 @login_required(login_url='loginPage')
@@ -147,13 +148,36 @@ def cek_hasil_soal(request, pk):
         'mapel': mapel
     })
     
-def fetch_resources(uri, rel):
-    if uri.startswith(settings.MEDIA_URL):
-        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
-    elif uri.startswith(settings.STATIC_URL):
-        path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result, link_callback=link_callback, encoding='UTF-8')
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+def link_callback(uri, rel):
+    # use short variable names
+    s_url = settings.STATIC_URL      # Typically /static/
+    s_dirs = settings.STATICFILES_DIRS    # Typically /home/userX/project_static/
+    m_url = settings.MEDIA_URL       # Typically /static/media/
+    m_root = settings.MEDIA_ROOT     # Typically /home/userX/project_static/media/
+
+    # convert URIs to absolute system paths
+    if uri.startswith(m_url):
+        path = os.path.join(m_root, uri.replace(m_url, ""))
+    elif uri.startswith(s_url):
+        path = os.path.join(next(iter(s_dirs)), uri.replace(s_url, ""))
     else:
-        path = uri
+        return uri  # handle absolute uri (ie: http://some.tld/foo.png)
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+            raise Exception(
+                'media URI must start with %s or %s' % (s_url, m_url)
+            )
     return path
     
     
@@ -164,41 +188,54 @@ def generate_dokumen(request, pk):
     soal_pg = Soal_pg.objects.filter(mapel=mapel, pengguna=request.user)
     soal_esai = SoalEsai.objects.filter(mapel=mapel, pengguna=request.user)
 
+    if soal_pg.exists():
+        kelas = soal_pg.first().kelas
+        jurusan_rpl = soal_pg.first().jurusan_rpl
+        jurusan_tkr = soal_pg.first().jurusan_tkr
+    else:
+        kelas = "undefined"
+        jurusan_rpl = False
+        jurusan_tkr = False
+
+    jurusan = "RPL" if jurusan_rpl else "TKR" if jurusan_tkr else "undefined"
+
     context = {
         'soal_pg': soal_pg,
         'soal_esai': soal_esai,
         'mapel': mapel
     }
 
-    html_string = render_to_string('generate_dokument_soal_template.html', context)
+    pdf = render_to_pdf('create_pdf.html', context)
 
-    # Tentukan path untuk menyimpan file PDF
-    pdf_filename = f"soal_{mapel}_{request.user.username}.pdf"
-    pdf_directory = os.path.join('dokumen_soal')
+    if pdf:
+        # Tentukan path untuk menyimpan file PDF
+        pdf_filename = f"soal_{mapel}_{kelas}_{jurusan}_{request.user.username}.pdf"
+        pdf_directory = os.path.join('dokumen_soal')
 
-    # Pastikan direktori ada
-    os.makedirs(pdf_directory, exist_ok=True)
+        # Pastikan direktori ada
+        os.makedirs(pdf_directory, exist_ok=True)
 
-    # Buat path file PDF
-    pdf_filepath = os.path.join(pdf_directory, pdf_filename)
+        # Buat path file PDF
+        pdf_filepath = os.path.join(pdf_directory, pdf_filename)
 
-    # Buat PDF
-    with open(pdf_filepath, "wb") as f:
-        pisa.CreatePDF(html_string, dest=f, link_callback=fetch_resources)
+        # Simpan PDF ke dalam filesystem
+        with open(pdf_filepath, "wb") as f:
+            f.write(pdf.getvalue())
 
-    # Simpan informasi dokumen ke dalam database
-    dokumen_soal = DokumenSoal(
-        mapel=mapel,
-        pengguna=request.user,
-        file_name=pdf_filename,
-        file_path=f'dokumen_soal/{pdf_filename}'
-    )
-    dokumen_soal.save()
+        # Update atau buat dokumen soal
+        dokumen_soal, created = DokumenSoal.objects.update_or_create(
+            mapel=mapel,
+            pengguna=request.user,
+            defaults={
+                'file_name': pdf_filename,
+                'file_path': f'dokumen_soal/{pdf_filename}'
+            }
+        )
 
-    return redirect('buatsoal')
+        return redirect('buatsoal')
 
-def tes_generate_dokumen(request):
-    return render(request, 'tes.html')
+    return HttpResponse("PDF generation error", status=500)
+
 
 @login_required
 def user_settings(request):

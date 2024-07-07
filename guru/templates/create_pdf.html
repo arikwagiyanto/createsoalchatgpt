@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Cetak</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        hr {
+            border: 1px solid #000;
+            margin-bottom: 1px;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0px;
+        }
+
+        .column {
+            flex: 50%;
+            box-sizing: border-box;
+            padding: 0px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .soal {
+            margin-bottom: 0px;
+            margin-top: -30px;
+        }
+
+        .soal p {
+            font-size: 12px;
+            margin-bottom: 0px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0px;
+        }
+
+        ul li {
+            font-size: 12px;
+            margin-bottom: 0px;
+        }
+
+        .essay-space {
+            border: 2px solid #000; /* Ganti #000 dengan warna border yang diinginkan */
+            padding: 20px;
+            width: 300px;
+            text-align: center; /* Adjust height as needed for essay space */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'assets/kop.jpg' %}" alt="">
+    </div>
+    <hr>
+    <hr>
+    <div class="header">
+        <img src="{% static 'assets/kop_nama.jpg' %}" alt="">
+    </div>
+    <hr>
+    <div class="content">
+        <div class="column">
+            <h2>A. Soal Pilihan Ganda Cetak</h2>
+            {% for pg in soal_pg %}
+            <div class="soal">
+                <p>{{ pg.nomor_soal }}. {{ pg.soal_pg }}</p>
+                <ul>
+                    <li>A. {{ pg.pilihan_a }}</li>
+                    <li>B. {{ pg.pilihan_b }}</li>
+                    <li>C. {{ pg.pilihan_c }}</li>
+                    <li>D. {{ pg.pilihan_d }}</li>
+                    <li>E. {{ pg.pilihan_e }}</li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="column">
+            <h2 style="margin-top: 10px;">B. Soal Esai</h2>
+            {% for esai in soal_esai %}
+            <div class="soal">
+                <p>{{ esai.nomor_soal }}. {{ esai.soal_esai }}</p>
+                <div class="essay-space"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

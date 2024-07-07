@@ -13,7 +13,7 @@
               </div>
               <div class="card-body">
                 <section class="pg-section">
-                  <h2>Soal Pilihan Ganda</h2>
+                  <h2>A. Soal Pilihan Ganda</h2>
                   <hr>
                   <div class="row">
                     {% for pg in soal_pg %}
@@ -30,7 +30,7 @@
                 </section>
                 <hr>
                 <section class="essay-section">
-                  <h2>Soal Esai</h2>
+                  <h2>B. Soal Esai</h2>
                   <hr>
                   <!-- Ulangi untuk semua soal esai 1-5 -->
                   <div class="row">
@@ -44,7 +44,6 @@
 
                 <div class="row mt-3">
                     <a href="{% url 'buat_dokumen' mapel.id %}" class="btn btn-primary">Buat Dokumen Soal</a>
-                    <a href="{% url 'tes_dokumen' %}" class="btn btn-primary" target="_blank">tes Dokumen Soal</a>
                 </div>
               </div>
             </div>
