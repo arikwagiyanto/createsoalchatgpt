@@ -5,6 +5,8 @@ from administrator.models import *
 from .forms import MapelForm, JadwalUjianForm, JadwalJagaForm, UserUpdateForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+import os
+from django.http import HttpResponse
 
 @login_required(login_url='loginPage')
 @ijinkan_pengguna(yang_diizinkan=['panitia'])
@@ -35,12 +37,35 @@ def lihatsoal(request):
 
 @ijinkan_pengguna(yang_diizinkan=['panitia'])
 @login_required(login_url='loginPage')
-def cetaksoal(request):
+def print_soal(request):
+    fileName = DokumenSoal.objects.all()
+    processed_soals = []
+
+    for soal in fileName:
+        parts = soal.file_name.split('_')
+        processed_soals.append({
+            'id': soal.id,
+            'mapel': parts[1].capitalize(),
+            'kelas': parts[2].upper() + ' ' + parts[3].upper(),
+            'guru': parts[4].capitalize(),
+            'filename': soal.file_path
+        })
+    
     context = {
         'judul': 'Halaman cetak soal',
         'menu': 'cetaksoal',
+        'dokumen': processed_soals
     }
     return render(request, 'cetaksoal.html', context)
+
+def print_pdf(request, id):
+    soal = get_object_or_404(DokumenSoal, id=id)
+    file_path = soal.file_path
+
+    with open(file_path, 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'inline;filename={soal.file_name}.pdf'
+        return response
 
 
 def mapel_list(request):
