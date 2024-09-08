@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{% static 'login.css' %}">
+  <style>
+    body {
+      background: url(../static/001.jpg);
+      background-color: aqua;
+      background-repeat: no-repeat;
+      font-family: 'Arial', sans-serif;
+    }
+    .login-form {
+      width: 360px;
+      margin: 50px auto;
+      padding: 30px 20px;
+      background-color: #EEEEEE;
+      color: #151515;
+      opacity: .8;
+      border-radius: 10px;
+      box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+    .login-form h2 {
+      color: #000000;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .login-form form {
+      margin-bottom: 15px;
+    }
+    .login-form .form-control {
+      min-height: 40px;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+    .login-form .btn {
+      font-size: 16px;
+      color: #000000;
+      font-weight: bold;
+      background: #39A7FF;
+      border: none;
+      border-radius: 10px;
+      min-width: 140px;
+    }
+    .login-form .btn:hover {
+      background: #87C4FF;
+    }
+    .login-form a {
+      color: #333;
+      text-decoration: none;
+    }
+    .login-form a:hover {
+      text-decoration: underline;
+    }
+    h1{
+        color: #1679AB;
+        margin-top: 3%;
+        font-family: 'Arial Black', sans-serif;
+        text-shadow: 2px 2px 5px black;
+        font-size: 50px;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <h1>SMK RAUDLATUL JANNAH</h1>
+<div class="login-form">
+    <h2>Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control"name="password" id="password" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </div>
+    </form>
+    <div class="mt-2">
+        {% if messages %}
+            {% for pesan in messages %}
+                <div class="alert alert-danger" align="center"><b>{{pesan}}</b></div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

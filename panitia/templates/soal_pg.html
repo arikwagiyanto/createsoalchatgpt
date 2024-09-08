@@ -1,0 +1,174 @@
+{% extends 'base_user.html' %}
+
+{% block content %}
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Input Soal</title>
+      <style>
+        /* The Modal (background) */
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          padding-top: 100px;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Modal Content */
+        .modal-content {
+          background-color: #fefefe;
+          margin: auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+          max-width: 500px;
+          position: relative;
+          bottom: -300px;
+          opacity: 0;
+          transition: all 0.5s ease-in-out;
+        }
+
+        /* The Close Button */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        /* Floating button styles */
+        .floating-btn {
+          position: fixed;
+          right: 20px;
+          bottom: 20px;
+          z-index: 1000;
+          background-color: #007bff;
+          color: white;
+          padding: 15px 20px;
+          border: none;
+          border-radius: 50px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          font-size: 16px;
+          transition: all 0.3s ease;
+        }
+
+        .floating-btn:hover {
+          background-color: #0056b3;
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+          transform: translateY(-4px) scale(1.05);
+        }
+
+        /* Animation for modal content */
+        .modal.show .modal-content {
+          bottom: 0;
+          opacity: 1;
+        }
+
+        /* Hide button */
+        .hidden {
+          display: none;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Mata Pelajaran : {{ mapel }}</h3>
+                  </div>
+                  <div class="card-body">
+                    <h4>Soal Nomor {{ nomor_soal }}</h4>
+                    <hr />
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                      <a href="{% url 'buatsoal_panitia' %}" class="btn btn-success">Cancel</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Floating button -->
+      <button id="openModalBtn" class="btn btn-primary floating-btn"><i data-feather="feather"></i> ChatGPT</button>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h6>Generate Soal dengan ChatGPT</h6>
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="chatgpt_prompt">Masukkan Pertanyaan:</label>
+              <textarea name="chatgpt_prompt" id="chatgpt_prompt" class="form-control"></textarea>
+            </div>
+            <button type="submit" name="generate_from_chatgpt" class="btn btn-primary">Generate Soal</button>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        // Get the modal
+        var modal = document.getElementById('myModal')
+
+        // Get the button that opens the modal
+        var btn = document.getElementById('openModalBtn')
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName('close')[0]
+
+        // When the user clicks the button, open the modal with animation and hide the button
+        btn.onclick = function () {
+          modal.style.display = 'block'
+          setTimeout(function () {
+            modal.classList.add('show')
+            btn.classList.add('hidden') // Hide the button
+          }, 200) // Short delay to trigger the CSS transition
+        }
+
+        // When the user clicks on <span> (x), close the modal and show the button
+        span.onclick = function () {
+          modal.classList.remove('show')
+          setTimeout(function () {
+            modal.style.display = 'none'
+            btn.classList.remove('hidden') // Show the button again
+          }, 500) // Delay to match the transition duration
+        }
+
+        // When the user clicks anywhere outside of the modal, close it and show the button
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.classList.remove('show')
+            setTimeout(function () {
+              modal.style.display = 'none'
+              btn.classList.remove('hidden') // Show the button again
+            }, 500) // Delay to match the transition duration
+          }
+        }
+      </script>
+    </body>
+  </html>
+{% endblock %}

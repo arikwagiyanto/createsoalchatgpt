@@ -1,0 +1,27 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+
+<div class="main-content">
+    <section class="section">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-lg-8">
+                <div class="card border-info mb-3">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">Daftar Dokumen Soal (Siap Cetak)</h5>
+                        <ul class="list-group">
+                            {% for d in dokumen %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Mapel {{ d.mapel }}-{{ d.kelas }}-{{ d.guru }}</span>
+                                <a href="{% url 'pdf_cetak' d.id %}" target="_blank" class="btn btn-primary">Buka PDF</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}
